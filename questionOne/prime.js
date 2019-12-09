@@ -1,0 +1,1 @@
+// Write a function is Prime that returns true if a number is prime.
