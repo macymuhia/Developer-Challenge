@@ -10,3 +10,62 @@
 // from their list of favorites.
 // If a character is marked as a favorite, this should be indicated in the
 // list view with a heart icon.
+
+const app = document.getElementById("app");
+
+const container = document.createElement('div');
+container.setAttribute('class', 'container');
+
+const ul = document.createElement('ul');
+ul.setAttribute('class', 'characters');
+
+container.append(ul);
+
+app.appendChild(container);
+
+function createNode(element) {
+    return document.createElement(element);
+}
+
+function append(parent, el) {
+    return parent.appendChild(el);
+}
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+function fetchCharacters() {
+    const url = 'https://swapi.co/api/people/';
+    fetch(url)
+        .then((resp) => resp.json())
+        .then(function(data) {
+            let characters = data.results;
+            return characters.map(function(character) {
+                let li = createNode('li'),
+                    span = createNode('span');
+                a = createNode('a');
+                a.setAttribute('target', '_blank');
+                span.innerHTML = `${character.name}`;
+                xterurl = `${character.url}`
+                a.href = 'character.html?' + xterurl;
+
+                append(a, span);
+                append(li, a);
+                append(ul, li);
+            })
+        })
+        .catch(function(error) {
+            console.log(JSON.stringify(error));
+        });
+}
+
+function fetchCharacter() {
+    const url = getUrlVars()["url"];
+    console.log(url);
+
+}
